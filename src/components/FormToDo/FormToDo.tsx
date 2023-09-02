@@ -17,6 +17,7 @@ const FormToDo = ({ addToDo, todoToEdit, setToggleForm }: props) => {
     description: todoToEdit?.description || "",
     created: "",
     id: 0,
+    done: false,
   });
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const FormToDo = ({ addToDo, todoToEdit, setToggleForm }: props) => {
       description: "",
       created: "",
       id: 0,
+      done: false,
     });
   }
 

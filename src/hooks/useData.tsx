@@ -6,7 +6,6 @@ const useData = () => {
     JSON.parse(window.localStorage.getItem("allToDos") || "[]")
   );
   const [toggleForm, setToggleForm] = useState(false);
-
   const [todoToEdit, setTodoToEdit] = useState<ToDo_type>();
 
   function addToDo({ todo }: { todo: ToDo_type }) {
@@ -15,7 +14,7 @@ const useData = () => {
     setToggleForm(false);
     window.localStorage.setItem("allToDos", JSON.stringify(newVal));
   }
-  
+
   function removeToDo({ id }: { id: number }) {
     const newData = data.filter((item) => item.id !== id);
     setData(newData);
@@ -27,6 +26,14 @@ const useData = () => {
     setTodoToEdit(data[toDo]);
   }
 
+  function MarkDone({ id }: { id: number }) {
+    const toDo = data.findIndex((item) => item.id === id);
+    data[toDo].done = !data[toDo].done;
+    setData([...data])
+  }
+
+  console.log(data);
+
   return {
     data,
     addToDo,
@@ -35,6 +42,7 @@ const useData = () => {
     todoToEdit,
     toggleForm,
     setToggleForm,
+    MarkDone,
   };
 };
 

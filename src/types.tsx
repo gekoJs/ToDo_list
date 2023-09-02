@@ -3,4 +3,5 @@ export interface ToDo_type {
   title: string;
   description: string;
   created: string;
+  done: boolean;
 }

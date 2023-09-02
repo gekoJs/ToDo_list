@@ -13,6 +13,7 @@ const ToDoWrapper = () => {
     todoToEdit,
     toggleForm,
     setToggleForm,
+    MarkDone,
   } = useData();
 
   return (
@@ -42,6 +43,8 @@ const ToDoWrapper = () => {
                 id={toDo.id}
                 removeToDo={removeToDo}
                 editToDo={editToDo}
+                MarkDone={MarkDone}
+                done={toDo.done}
               />
             ))}
           </main>
