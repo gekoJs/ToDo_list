@@ -99,3 +99,37 @@ export const EditIcon = ({ color }: { color: string }) => {
 EditIcon.defaultProps = {
   color: "#fff",
 };
+
+export const CloseIcon = ({ color }: { color: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+      fill={color}
+    >
+      <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+    </svg>
+  );
+};
+CloseIcon.defaultProps = {
+  color: "#fff",
+};
+
+export const UnfoldIcon = ({ color }: { color: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24"
+      viewBox="0 -960 960 960"
+      width="24"
+      fill={color}
+    >
+      <path d="M480-360 280-560h400L480-360Z" />
+    </svg>
+  );
+};
+UnfoldIcon.defaultProps = {
+  color: "#fff",
+};

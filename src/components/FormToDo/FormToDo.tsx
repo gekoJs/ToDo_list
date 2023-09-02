@@ -1,16 +1,17 @@
-import { useEffect, useId, useState } from "react";
-import { AddIcon } from "../assets/icons";
-import "./AddToDo.css";
-import { type ToDo_type } from "../types";
+import { useEffect, useId, useState, Dispatch, SetStateAction } from "react";
+import { AddIcon, CloseIcon } from "../../assets/icons";
+import { type ToDo_type } from "../../types";
+import styles from "./FormToDo.module.css";
 
-const FormToDo = ({
-  addToDo,
-  todoToEdit,
-}: {
+type props = {
   addToDo: ({ todo }: { todo: ToDo_type }) => void;
   todoToEdit: ToDo_type | undefined;
-}) => {
+  setToggleForm: Dispatch<SetStateAction<boolean>>;
+};
 
+//----------------------------------------------------------
+
+const FormToDo = ({ addToDo, todoToEdit, setToggleForm }: props) => {
   const [inputsVal, setInputsVal] = useState<ToDo_type>({
     title: "",
     description: todoToEdit?.description || "",
@@ -23,7 +24,7 @@ const FormToDo = ({
       setInputsVal(todoToEdit);
     }
   }, [todoToEdit]);
-  
+
   function handleInputChange(
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -67,11 +68,18 @@ const FormToDo = ({
 
   const titleToDoId = useId();
   const descriptionToDoId = useId();
+
   return (
-    <div className="container">
-      <form className="form_wrapper" onSubmit={handleSubmit}>
-        <div className="input_wrapper">
-          <label htmlFor={titleToDoId} className="label">
+    <div className={styles.container}>
+      <form className={styles.form_wrapper} onSubmit={handleSubmit}>
+        <button
+          className={styles.closeBtn}
+          onClick={() => setToggleForm(false)}
+        >
+          <CloseIcon />
+        </button>
+        <div className={styles.input_wrapper}>
+          <label htmlFor={titleToDoId} className={styles.label}>
             Title:
           </label>
           <input
@@ -79,26 +87,26 @@ const FormToDo = ({
             value={inputsVal.title}
             id={titleToDoId}
             name="title"
-            className="input"
+            className={styles.input}
             onChange={handleInputChange}
             autoComplete={"off"}
           />
         </div>
 
-        <div className="input_wrapper input_wrapper2">
-          <label htmlFor={descriptionToDoId} className="label">
+        <div className={`${styles.input_wrapper} ${styles.input_wrapper2}`}>
+          <label htmlFor={descriptionToDoId} className={styles.label}>
             Description:
           </label>
           <textarea
             name="description"
             id={descriptionToDoId}
-            className="textarea"
+            className={styles.textarea}
             onChange={handleInputChange}
             value={inputsVal.description}
           ></textarea>
         </div>
 
-        <button className="addBtn" onClick={handleSubmit}>
+        <button className={styles.addBtn} onClick={handleSubmit}>
           <AddIcon />
         </button>
       </form>

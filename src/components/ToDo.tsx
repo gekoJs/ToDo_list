@@ -1,5 +1,7 @@
-import { DeleteIcon, EditIcon } from "../assets/icons";
+import { DeleteIcon, EditIcon, UnfoldIcon } from "../assets/icons";
 import styles from "./ToDo.module.css";
+import { useState } from "react";
+
 type props = {
   title: string;
   description: string;
@@ -9,6 +11,8 @@ type props = {
   id: number;
 };
 
+//------------------------------------------------
+
 const ToDo = ({
   title,
   description,
@@ -17,14 +21,33 @@ const ToDo = ({
   removeToDo,
   editToDo,
 }: props) => {
+  const [unfold, setUnfold] = useState(false);
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{
+        alignItems: unfold ? "flex-start" : "center",
+        minHeight: unfold ? "200px" : "",
+      }}
+    >
       <div className={styles.contentWrapper}>
-        <h3>Title: {title}</h3>
-        <p>Description: {description}</p>
-        <span>Created: {created}</span>
+        <h3>{title}</h3>
+        {unfold && (
+          <>
+            <p>{description}</p>
+            <span>{created}</span>
+          </>
+        )}
       </div>
       <div className={styles.wrapperBtns}>
+        <button
+          className={styles.btn}
+          onClick={() => setUnfold((prev) => !prev)}
+          style={{ transform: unfold ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          <UnfoldIcon />
+        </button>
         <button onClick={() => editToDo({ id })} className={styles.btn}>
           <EditIcon />
         </button>
