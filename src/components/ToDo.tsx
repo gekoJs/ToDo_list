@@ -5,18 +5,21 @@ import {
   EditIcon,
   UnfoldIcon,
 } from "../assets/icons";
+import { type ToDo_type } from "../types";
 import styles from "./ToDo.module.css";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type props = {
   title: string;
   description: string;
   created: string;
   removeToDo: ({ id }: { id: number }) => void;
-  editToDo: ({ id }: { id: number }) => void;
   MarkDone: ({ id }: { id: number }) => void;
   id: number;
   done: boolean;
+  setToggleEdit: Dispatch<SetStateAction<boolean>>;
+  setInputsVal: Dispatch<SetStateAction<ToDo_type>>;
+  getById: ({ id }: { id: number }) => ToDo_type;
 };
 
 //------------------------------------------------
@@ -27,11 +30,19 @@ const ToDo = ({
   created,
   id,
   removeToDo,
-  editToDo,
   MarkDone,
   done,
+  getById,
+  setToggleEdit,
+  setInputsVal,
 }: props) => {
   const [unfold, setUnfold] = useState(false);
+
+  function handleEdit() {
+    setToggleEdit(true);
+    const toDo = getById({ id });
+    setInputsVal(toDo)
+  }
 
   return (
     <div
@@ -61,7 +72,7 @@ const ToDo = ({
         <button className={styles.btn} onClick={() => MarkDone({ id })}>
           {done ? <CheckDoneIcon /> : <CheckNotDoneIcon />}
         </button>
-        <button onClick={() => editToDo({ id })} className={styles.btn}>
+        <button onClick={handleEdit} className={styles.btn}>
           <EditIcon />
         </button>
         <button onClick={() => removeToDo({ id })} className={styles.btn}>

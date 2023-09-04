@@ -3,18 +3,32 @@ import useData from "../../hooks/useData";
 import ToDo from "../../components/ToDo";
 import styles from "./ToDoWrapper.module.css";
 import { AddIcon } from "../../assets/icons";
+import useForm from "../../hooks/useForm";
 
 const ToDoWrapper = () => {
   const {
     data,
     addToDo,
     removeToDo,
-    editToDo,
-    todoToEdit,
     toggleForm,
     setToggleForm,
     MarkDone,
+    toggleEdit,
+    setToggleEdit,
+    getById,
+    editToDo,
   } = useData();
+
+  const {
+    inputsVal,
+    handleInputChange,
+    handleSubmit,
+    setInputsVal,
+    handleEdit,
+  } = useForm({
+    addToDo,
+    editToDo,
+  });
 
   return (
     <div className={styles.container}>
@@ -40,11 +54,13 @@ const ToDoWrapper = () => {
                 title={toDo.title}
                 description={toDo.description}
                 created={toDo.created}
+                done={toDo.done}
                 id={toDo.id}
                 removeToDo={removeToDo}
-                editToDo={editToDo}
                 MarkDone={MarkDone}
-                done={toDo.done}
+                getById={getById}
+                setToggleEdit={setToggleEdit}
+                setInputsVal={setInputsVal}
               />
             ))}
           </main>
@@ -67,9 +83,20 @@ const ToDoWrapper = () => {
 
       {toggleForm && (
         <FormToDo
-          addToDo={addToDo}
-          todoToEdit={todoToEdit}
+          type="create"
           setToggleForm={setToggleForm}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          inputsVal={inputsVal}
+        />
+      )}
+      {toggleEdit && (
+        <FormToDo
+          type="edit"
+          setToggleForm={setToggleEdit}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleEdit}
+          inputsVal={inputsVal}
         />
       )}
     </div>

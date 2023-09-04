@@ -1,79 +1,31 @@
-import { useEffect, useId, useState, Dispatch, SetStateAction } from "react";
+import { useId, Dispatch, SetStateAction } from "react";
 import { AddIcon, CloseIcon } from "../../assets/icons";
-import { type ToDo_type } from "../../types";
 import styles from "./FormToDo.module.css";
 
 type props = {
-  addToDo: ({ todo }: { todo: ToDo_type }) => void;
-  todoToEdit: ToDo_type | undefined;
   setToggleForm: Dispatch<SetStateAction<boolean>>;
+  type: "create" | "edit";
+  inputsVal: any;
+  handleInputChange: any;
+  handleSubmit: any;
 };
 
 //----------------------------------------------------------
 
-const FormToDo = ({ addToDo, todoToEdit, setToggleForm }: props) => {
-  const [inputsVal, setInputsVal] = useState<ToDo_type>({
-    title: "",
-    description: todoToEdit?.description || "",
-    created: "",
-    id: 0,
-    done: false,
-  });
-
-  useEffect(() => {
-    if (todoToEdit) {
-      setInputsVal(todoToEdit);
-    }
-  }, [todoToEdit]);
-
-  function handleInputChange(
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) {
-    setInputsVal((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
-
-  function handleSubmit(
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
-  ) {
-    e.preventDefault();
-
-    if (!!!inputsVal.title || !!!inputsVal.description) return;
-
-    const time = new Date();
-    var hh = time.getHours();
-    var mm = time.getMinutes();
-    var ss = time.getSeconds();
-    const day = time.getDate();
-    const month = time.getMonth() + 1;
-    const year = time.getFullYear();
-
-    addToDo({
-      todo: {
-        ...inputsVal,
-        id: Math.floor(Math.random() * 1000000),
-        created: `${day}/${month}/${year} | ${hh}:${mm}:${ss}`,
-      },
-    });
-    setInputsVal({
-      title: "",
-      description: "",
-      created: "",
-      id: 0,
-      done: false,
-    });
-  }
-
+const FormToDo = ({
+  setToggleForm,
+  type,
+  inputsVal,
+  handleInputChange,
+  handleSubmit,
+}: props) => {
   const titleToDoId = useId();
   const descriptionToDoId = useId();
 
   return (
     <div className={styles.container}>
       <form className={styles.form_wrapper} onSubmit={handleSubmit}>
+        <h3>{type}</h3>
         <button
           className={styles.closeBtn}
           onClick={() => setToggleForm(false)}

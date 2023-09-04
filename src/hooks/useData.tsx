@@ -6,7 +6,7 @@ const useData = () => {
     JSON.parse(window.localStorage.getItem("allToDos") || "[]")
   );
   const [toggleForm, setToggleForm] = useState(false);
-  const [todoToEdit, setTodoToEdit] = useState<ToDo_type>();
+  const [toggleEdit, setToggleEdit] = useState(false);
 
   function addToDo({ todo }: { todo: ToDo_type }) {
     const newVal = [...data, { ...todo }];
@@ -21,28 +21,35 @@ const useData = () => {
     window.localStorage.setItem("allToDos", JSON.stringify(newData));
   }
 
-  function editToDo({ id }: { id: number }) {
-    const toDo = data.findIndex((item) => item.id === id);
-    setTodoToEdit(data[toDo]);
-  }
-
   function MarkDone({ id }: { id: number }) {
     const toDo = data.findIndex((item) => item.id === id);
     data[toDo].done = !data[toDo].done;
-    setData([...data])
+    setData([...data]);
   }
 
-  console.log(data);
+  function getById({ id }: { id: number }) {
+    const toDo = data.findIndex((item) => item.id === id);
+    return data[toDo];
+  }
+
+  function editToDo({ todo }: { todo: ToDo_type }) {
+    const toDoToEdit = data.findIndex((item) => item.id === todo.id);
+    data[toDoToEdit] = todo;
+    setData([...data]);
+    setToggleEdit(false);
+  }
 
   return {
     data,
     addToDo,
     removeToDo,
-    editToDo,
-    todoToEdit,
     toggleForm,
     setToggleForm,
     MarkDone,
+    toggleEdit,
+    setToggleEdit,
+    getById,
+    editToDo,
   };
 };
 
