@@ -27,7 +27,7 @@
 }
 .addBtn{
     cursor: pointer;
-    background: #5f5f5f;
+    background: var(--color2);
     width: min-content;
     height: min-content;
     padding: 1em;
@@ -38,6 +38,7 @@
   .addBtn svg{
     width: 100px;
     height: 100px;
+    fill: var(--color4);
   }
 
   .addBtn_main{

@@ -54,7 +54,8 @@
   resize: none;
 }
 
-.addBtn, .closeBtn{
+.addBtn,
+.closeBtn {
   cursor: pointer;
   background: #5f5f5f;
   width: min-content;
@@ -67,11 +68,15 @@
   bottom: 1em;
   right: 1em;
 }
-.addBtn svg{
+.addBtn svg {
   width: 50px;
   height: 50px;
 }
-.closeBtn{
+.closeBtn {
   top: 1em;
   right: 1em;
+}
+.type {
+  font-size: 2em;
+  margin: auto;
 }

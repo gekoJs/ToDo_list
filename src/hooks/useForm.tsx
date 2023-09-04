@@ -64,6 +64,14 @@ const useForm = ({ addToDo, editToDo }: props) => {
   ) {
     e.preventDefault();
     editToDo({ todo: inputsVal });
+
+    setInputsVal({
+      title: "",
+      description: "",
+      created: "",
+      id: 0,
+      done: false,
+    });
   }
 
   return {

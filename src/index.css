@@ -1,9 +1,16 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-    background-color: #1f1f1f;
-    color: #f1f1f1;
+body {
+  background-color: var(--color1);
+  color: var(--color4);
+}
+:root {
+  --color1: #252B48;
+  --color2: #445069;
+  --color3: #5B9A8B;
+  --color4: #F7E987;
+  --color5: #900C3F;
 }

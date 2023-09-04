@@ -4,6 +4,7 @@ import ToDo from "../../components/ToDo";
 import styles from "./ToDoWrapper.module.css";
 import { AddIcon } from "../../assets/icons";
 import useForm from "../../hooks/useForm";
+import { useEffect } from "react";
 
 const ToDoWrapper = () => {
   const {
@@ -29,6 +30,22 @@ const ToDoWrapper = () => {
     addToDo,
     editToDo,
   });
+
+  useEffect(() => {
+    if (toggleForm) {
+      setInputsVal({
+        title: "",
+        description: "",
+        created: "",
+        id: 0,
+        done: false,
+      });
+      setToggleEdit(false);
+    }
+    if (toggleEdit) {
+      setToggleForm(false);
+    }
+  }, [toggleEdit, toggleForm]);
 
   return (
     <div className={styles.container}>
@@ -83,7 +100,7 @@ const ToDoWrapper = () => {
 
       {toggleForm && (
         <FormToDo
-          type="create"
+          type="Create"
           setToggleForm={setToggleForm}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
@@ -92,7 +109,7 @@ const ToDoWrapper = () => {
       )}
       {toggleEdit && (
         <FormToDo
-          type="edit"
+          type="Edit"
           setToggleForm={setToggleEdit}
           handleInputChange={handleInputChange}
           handleSubmit={handleEdit}

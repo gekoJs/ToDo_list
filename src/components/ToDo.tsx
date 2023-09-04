@@ -41,7 +41,7 @@ const ToDo = ({
   function handleEdit() {
     setToggleEdit(true);
     const toDo = getById({ id });
-    setInputsVal(toDo)
+    setInputsVal(toDo);
   }
 
   return (
@@ -56,7 +56,9 @@ const ToDo = ({
         {unfold && (
           <>
             <p className={done ? styles.done : ""}>{description}</p>
-            <span>{created}</span>
+            <span>
+              <strong> {created}</strong>
+            </span>
           </>
         )}
       </div>

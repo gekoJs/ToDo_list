@@ -4,7 +4,7 @@ import styles from "./FormToDo.module.css";
 
 type props = {
   setToggleForm: Dispatch<SetStateAction<boolean>>;
-  type: "create" | "edit";
+  type: "Create" | "Edit";
   inputsVal: any;
   handleInputChange: any;
   handleSubmit: any;
@@ -25,7 +25,7 @@ const FormToDo = ({
   return (
     <div className={styles.container}>
       <form className={styles.form_wrapper} onSubmit={handleSubmit}>
-        <h3>{type}</h3>
+        <h3 className={styles.type}>{type} toDo</h3>
         <button
           className={styles.closeBtn}
           onClick={() => setToggleForm(false)}

@@ -25,6 +25,7 @@ const useData = () => {
     const toDo = data.findIndex((item) => item.id === id);
     data[toDo].done = !data[toDo].done;
     setData([...data]);
+    window.localStorage.setItem("allToDos", JSON.stringify([...data]));
   }
 
   function getById({ id }: { id: number }) {
@@ -36,6 +37,7 @@ const useData = () => {
     const toDoToEdit = data.findIndex((item) => item.id === todo.id);
     data[toDoToEdit] = todo;
     setData([...data]);
+    window.localStorage.setItem("allToDos", JSON.stringify([...data]));
     setToggleEdit(false);
   }
 
